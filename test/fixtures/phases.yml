@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  assignee: MyString
+  start_date: 2021-08-18 20:55:23
+  due_date: 2021-08-18 20:55:23
+  status: 1
+  type: 1
+  invitation_status: 1
+
+two:
+  assignee: MyString
+  start_date: 2021-08-18 20:55:23
+  due_date: 2021-08-18 20:55:23
+  status: 1
+  type: 1
+  invitation_status: 1
