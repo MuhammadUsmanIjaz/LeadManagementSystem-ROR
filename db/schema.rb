@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_18_161036) do
+ActiveRecord::Schema.define(version: 2021_08_19_111808) do
 
   create_table "leads", force: :cascade do |t|
     t.string "project_name"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 2021_08_18_161036) do
     t.integer "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_leads_on_user_id"
   end
 
   create_table "phases", force: :cascade do |t|
@@ -34,6 +36,8 @@ ActiveRecord::Schema.define(version: 2021_08_18_161036) do
     t.integer "invitation_status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "lead_id", null: false
+    t.index ["lead_id"], name: "index_phases_on_lead_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -41,6 +45,8 @@ ActiveRecord::Schema.define(version: 2021_08_18_161036) do
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "lead_id", null: false
+    t.index ["lead_id"], name: "index_projects_on_lead_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -52,6 +58,15 @@ ActiveRecord::Schema.define(version: 2021_08_18_161036) do
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
     t.index ["name"], name: "index_roles_on_name"
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
+  end
+
+  create_table "user_phases", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "phase_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["phase_id"], name: "index_user_phases_on_phase_id"
+    t.index ["user_id"], name: "index_user_phases_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -75,4 +90,9 @@ ActiveRecord::Schema.define(version: 2021_08_18_161036) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "leads", "users"
+  add_foreign_key "phases", "leads"
+  add_foreign_key "projects", "leads"
+  add_foreign_key "user_phases", "phases"
+  add_foreign_key "user_phases", "users"
 end
