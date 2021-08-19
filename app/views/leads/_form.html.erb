@@ -1,0 +1,44 @@
+<%= form_with model: lead do |form| %>
+  <div>
+    <%= form.label :project_name %><br>
+    <%= form.text_field :project_name %>
+  </div>
+
+  <div>
+    <%= form.label :client_name %><br>
+    <%= form.text_field :client_name %>
+  </div>
+
+  <div>
+    <%= form.label :client_address %><br>
+    <%= form.text_field :client_address %>
+  </div>
+
+  <div>
+    <%= form.label :client_email %><br>
+    <%= form.email_field :client_email %>
+  </div>
+
+  <div>
+    <%= form.label :client_contact %><br>
+    <%= form.text_field :client_contact %>
+  </div>
+
+  <div>
+    <%= form.label :platform %><br>
+    <%= form.text_field :platform %>
+  </div>
+
+  <div>
+    <%= form.label :test_type %><br>
+    <%= form.select :test_type, ["test_project", "oncall_interview]"] %>
+  </div>
+
+  <div>
+    <%= form.hidden_field :user_id, value: current_user.id%>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

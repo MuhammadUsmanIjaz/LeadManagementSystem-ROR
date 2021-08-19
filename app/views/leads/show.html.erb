@@ -1,0 +1,15 @@
+<h1><%= @lead.project_name %></h1>
+
+<p>
+    <%= @lead.client_name %>
+    <%= @lead.client_address %>
+    <%= @lead.client_email %>
+    <%= @lead.client_contact %>
+    <%= @lead.platform %>
+    <%= @lead.test_type %>
+</p>
+
+<ul>
+  <li><%= link_to "Edit", edit_lead_path(@lead) %></li>
+  <li><%= link_to "Destroy", lead_path(@lead),method: :delete, data: { confirm: "Are you sure?" } %></li>
+</ul>

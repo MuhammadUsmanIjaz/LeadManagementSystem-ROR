@@ -1,0 +1,10 @@
+<h1>Leads</h1>
+
+<ul>
+  <% @leads.each do |lead| %>
+    <li>
+      <%= link_to lead.project_name, lead %>
+    </li>
+  <% end %>
+</ul>
+<%= link_to "New Lead", new_lead_path %>
