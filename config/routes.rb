@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :leads
+  
+  resources :leads do
+    resources :phases
+  end
+
+
   devise_for :users
   get 'home/index'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'

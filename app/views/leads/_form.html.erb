@@ -1,37 +1,37 @@
 <%= form_with model: lead do |form| %>
-  <div>
+  <div class="form-group">
     <%= form.label :project_name %><br>
-    <%= form.text_field :project_name %>
+    <%= form.text_field :project_name, class:"form-control" %>
   </div>
 
-  <div>
+  <div class="form-group">
     <%= form.label :client_name %><br>
-    <%= form.text_field :client_name %>
+    <%= form.text_field :client_name, class:"form-control" %>
   </div>
 
-  <div>
+  <div class="form-group">
     <%= form.label :client_address %><br>
-    <%= form.text_field :client_address %>
+    <%= form.text_field :client_address, class:"form-control" %>
   </div>
 
-  <div>
+  <div class="form-group">
     <%= form.label :client_email %><br>
-    <%= form.email_field :client_email %>
+    <%= form.email_field :client_email, class:"form-control" %>
   </div>
 
-  <div>
+  <div class="form-group">
     <%= form.label :client_contact %><br>
-    <%= form.text_field :client_contact %>
+    <%= form.text_field :client_contact, class:"form-control" %>
   </div>
 
-  <div>
+  <div class="form-group">
     <%= form.label :platform %><br>
-    <%= form.text_field :platform %>
+    <%= form.text_field :platform, class:"form-control" %>
   </div>
 
-  <div>
+  <div class="form-group">
     <%= form.label :test_type %><br>
-    <%= form.select :test_type, ["test_project", "oncall_interview]"] %>
+    <%= form.select :test_type, ["test_project", "oncall_interview]"], class:"form-control" %>
   </div>
 
   <div>
@@ -39,6 +39,10 @@
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.hidden_field :status, value: "created"%>
+  </div>
+
+  <div>
+    <%= form.submit class:"btn btn-dark"%>
   </div>
 <% end %>
