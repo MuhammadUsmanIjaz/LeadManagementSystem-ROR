@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
   
   resources :leads do
-    resources :phases
+    resources :phases do
+      member do
+        get 'addengineers'
+        match 'addengineers', to: 'phases#add', via: [:post]
+        match 'addengineers', to: 'phases#delengineer', via: [:delete]
+      end
+    end
   end
 
 

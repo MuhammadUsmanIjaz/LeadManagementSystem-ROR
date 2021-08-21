@@ -38,8 +38,9 @@
     <%= form.hidden_field :user_id, value: current_user.id%>
   </div>
 
-  <div>
-    <%= form.hidden_field :status, value: "created"%>
+  <div class="form-group">
+    <%= form.label :status %><br>
+    <%= form.select :status, ["created", "in_progress", "sale", "not_sale"], class:"form-control"%>
   </div>
 
   <div>

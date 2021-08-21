@@ -1,7 +1,7 @@
 <%= form_with model: [ @lead, phase ] do |form| %>
   <div class="form-group">
     <%= form.label :assignee %><br>
-    <%= form.text_field :assignee, class:"form-control" %>
+    <%= form.select :assignee, @tech , class:"form-control" %>
   </div>
 
   <div class="form-group">
@@ -19,8 +19,9 @@
     <%= form.select :test_type, ["test_project", "interview"], class:"form-control" %>
   </div>
   
-  <div>
-    <%= form.hidden_field :status, value: "created" %>
+  <div class="form-group">
+    <%= form.label :status %><br>
+    <%= form.select :status, ["created", "in_progress", "completed"], class:"form-control"  %>
   </div>
 
   <div>
@@ -30,7 +31,7 @@
   <div>
     <%= form.hidden_field :lead_id,  value: @lead.id%>
   </div>
-  
+
   <div>
     <%= form.submit class:"btn btn-dark"%>
   </div>

@@ -43,7 +43,7 @@
         <th scope="col">Due Date</th>
         <th scope="col">Status</th>
         <th scope="col">Type</th>
-        <th colspan="2"></th>
+        <th colspan="3"></th>
 
       </tr>
     </thead>
@@ -56,6 +56,7 @@
         <td><%= phase.due_date %></td>
         <td><%= phase.status %></td>
         <td><%= phase.test_type %></td>
+        <td><%= link_to "Manage Engineers", [:addengineers, phase.lead, phase] %></td>
         <td><%= link_to "Edit Phase", [:edit, phase.lead, phase] %></td>
         <td><%= link_to 'Destroy Phase', [phase.lead, phase],method: :delete,data: { confirm: "Are you sure?" } %></td>    
       </tr>
