@@ -1,12 +1,12 @@
 
 
 <div class="container">
-<h1>Leads</h1>
-<ul class="list-group">
-  <% @leads.each do |lead| %>
-      <%= link_to lead.project_name, lead, class:"list-group-item list-group-item-action list-group-item-dark" %>
-  <% end %>
-</ul>
-<br/>
-<%= link_to "New Lead", new_lead_path, class:"btn btn-dark" %>
+  <h1>Leads</h1>
+  <ul class="list-group">
+    <% @leads.each do |lead| %>
+        <%= link_to lead.project_name, lead, class:"list-group-item list-group-item-action list-group-item-dark" %>
+    <% end %>
+  </ul>
+  <br/>
+  <%= link_to "New Lead", new_lead_path, class:"btn btn-dark" %>
 </div>

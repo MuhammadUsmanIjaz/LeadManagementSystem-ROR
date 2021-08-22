@@ -29,7 +29,12 @@ class LeadsController < ApplicationController
     @lead = Lead.find(params[:id])
 
     if @lead.update(lead_params)
-      redirect_to @lead
+      if lead_params[:status] == 'sale'
+        @description = 'The project is given by the client==>' + @lead.client_name + ', which will be developed using ' + @lead.platform + ' platform.'
+        redirect_to projects_new_path(:project => {:title => @lead.project_name, :description => @description, :lead_id => @lead.id})
+      else
+        redirect_to @lead
+      end
     else
       render :edit, status: :unprocessable_entity
     end

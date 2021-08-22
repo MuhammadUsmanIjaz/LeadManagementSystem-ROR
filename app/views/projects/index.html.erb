@@ -1,0 +1,18 @@
+<div class="container">
+  <h1>Projects</h1>
+    <% @projects.each do |project| %>
+    <div class="card">
+      <h4 class="card-header bg-dark text-white"> <%=project.title%> </h4>
+      <div class="card-body">
+        <p class="card-text"><%=project.description%></p>
+        <%= link_to "Delete Project", project_path(:id => project.id),method: :delete, data: { confirm: "Are you sure?" }, class:"btn btn-secondary" %>
+      </div>
+    </div>
+    <br/>
+    <% end %>
+</div>
+  
+    
+            
+  
+
