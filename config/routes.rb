@@ -19,5 +19,6 @@ Rails.application.routes.draw do
   get "/projects", to: "projects#index"
   get "/projects/new", to: "projects#create"
   match 'project', to: 'projects#destroy', via: [:delete]
+  match 'projects', to: 'projects#addmanagers', via: [:post]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

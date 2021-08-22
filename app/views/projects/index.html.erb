@@ -4,8 +4,17 @@
     <div class="card">
       <h4 class="card-header bg-dark text-white"> <%=project.title%> </h4>
       <div class="card-body">
-        <p class="card-text"><%=project.description%></p>
+        <p class="card-text"><%=project.description%><br/><%=project.assignee%></p>
         <%= link_to "Delete Project", project_path(:id => project.id),method: :delete, data: { confirm: "Are you sure?" }, class:"btn btn-secondary" %>
+        <%= form_with url:projects_path(:id => project.id), method: :post   do |form| %>
+          <div class="form-group">
+            <h5><b><%= form.label :TechnicalManager %></b></h5>
+            <%= form.select :TM, @tech , class:"form-control" %>
+          </div>
+          <div>
+            <%= form.submit "Add Manger",class:"btn btn-dark"%>
+          </div>
+        <% end %>
       </div>
     </div>
     <br/>

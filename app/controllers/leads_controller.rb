@@ -1,4 +1,6 @@
 class LeadsController < ApplicationController
+  before_action :authenticate_user!
+  
   def index
     @leads = Lead.all
   end
@@ -9,6 +11,7 @@ class LeadsController < ApplicationController
 
   def new
     @lead = Lead.new
+    authorize @lead
   end
 
   def create
@@ -23,6 +26,7 @@ class LeadsController < ApplicationController
 
   def edit
     @lead = Lead.find(params[:id])
+    authorize @lead
   end
 
   def update
@@ -42,6 +46,7 @@ class LeadsController < ApplicationController
 
   def destroy
     @lead = Lead.find(params[:id])
+    authorize @lead
     @lead.destroy
 
     redirect_to root_path

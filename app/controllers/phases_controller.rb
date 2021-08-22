@@ -1,4 +1,6 @@
 class PhasesController < ApplicationController
+    before_action :authenticate_user!
+    
     def new
         @lead = Lead.find(params[:lead_id])
         @tms = User.with_role(:TechnicalManager, current_user)
@@ -7,6 +9,7 @@ class PhasesController < ApplicationController
             @tech << tm.name
         end
         @phase = @lead.phases.new
+        authorize @phase
         @user_phase = UserPhase.new
     end
     
@@ -25,6 +28,7 @@ class PhasesController < ApplicationController
             @tech << tm.name
         end
         @phase = @lead.phases.find(params[:id])
+        authorize @phase    
     end
     
     def update
@@ -41,11 +45,13 @@ class PhasesController < ApplicationController
     def destroy
         @lead = Lead.find(params[:lead_id])
         @phase = @lead.phases.find(params[:id])
+        authorize @phase
         @phase.destroy
         redirect_to lead_path(@lead)
     end
 
     def addengineers    
+        authorize Phase
         @engs = User.with_role(:Engineer, current_user)
         @engineers = []
         @ids = []
@@ -54,6 +60,7 @@ class PhasesController < ApplicationController
             @ids << eng.id
         end    
         @phaseusers = UserPhase.where(phase_id: params[:id],user_id: @ids)
+        
 
     end
 

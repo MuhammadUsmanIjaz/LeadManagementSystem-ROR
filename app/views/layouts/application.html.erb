@@ -20,7 +20,7 @@
   <body>
     <%= render "home/header" %>
     <br/>
-    <% if notice %>
+    <% if notice or alert%>
         <%= render "layouts/alert"%>
     <% end %>
     <div class="container">
