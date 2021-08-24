@@ -1,4 +1,6 @@
 <%= form_with model: [ @lead, phase ] do |form| %>
+  <%= phase.errors.full_messages.first if phase.errors.any? %>
+
   <div class="form-group">
     <%= form.label :assignee %><br>
     <%= form.select :assignee, @tech , class:"form-control" %>

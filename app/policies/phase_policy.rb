@@ -10,7 +10,7 @@ class PhasePolicy < ApplicationPolicy
   end
 
   def edit?
-    user.has_role? :admin or user.has_role? :BusinessDeveloper
+    user.has_role? :admin or user.has_role? :BusinessDeveloper or user.has_role? :TechnicalManager
   end
 
   def destroy?
@@ -21,4 +21,7 @@ class PhasePolicy < ApplicationPolicy
     user.has_role? :admin or user.has_role? :TechnicalManager
   end
 
+  def respond?
+    user.has_role? :TechnicalManager
+  end
 end

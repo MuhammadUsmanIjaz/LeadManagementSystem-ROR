@@ -15,8 +15,12 @@ class PhasesController < ApplicationController
     
     def create
         @lead = Lead.find(params[:lead_id])
+        @name = phase_params[:assignee]
+        @user = User.where(name: @name).take!
+        
         @phase = @lead.phases.create(phase_params)
         @user_phase = UserPhase.create({ "user_id"=>current_user.id, "phase_id"=>@phase.id})
+        UserMailer.with(user: @user, phase_id: @phase.id, lead_id: @lead.id).welcome_email.deliver_now
         redirect_to @lead
     end
 
@@ -77,6 +81,20 @@ class PhasesController < ApplicationController
         @user = UserPhase.where(phase_id: params[:id], user_id: params[:user_id]).take!
         @user.destroy
         redirect_to addengineers_lead_phase_path
+    end
+
+    def respond
+        authorize Phase
+    end
+
+    def saveresponse
+        @lead = Lead.find(params[:lead_id])
+        @phase = @lead.phases.find(params[:id])
+        if @lead.update(:status => 'in_progress') and @phase.update(:status => 'in_progress', :invitation_status => 'accepted') 
+            redirect_to lead_path(@lead)
+        else
+            render lead_path(@lead), status: :unprocessable_entity
+        end
     end
 
     private

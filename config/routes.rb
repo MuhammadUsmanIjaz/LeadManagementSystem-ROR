@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     resources :phases do
       member do
         get 'addengineers'
+        match "respond", to: "phases#respond", via: [:get]
+        match "respond", to: "phases#saveresponse", via: [:post]
         match 'addengineers', to: 'phases#add', via: [:post]
         match 'addengineers', to: 'phases#delengineer', via: [:delete]
       end

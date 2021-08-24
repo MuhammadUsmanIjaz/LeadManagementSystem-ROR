@@ -1,6 +1,7 @@
 <div class="container">
   <h1>Projects</h1>
     <% @projects.each do |project| %>
+    <%= project.errors.full_messages.first if project.errors.any? %>
     <div class="card">
       <h4 class="card-header bg-dark text-white"> <%=project.title%> </h4>
       <div class="card-body">
