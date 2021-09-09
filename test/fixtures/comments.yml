@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  commenter: MyString
+  body: MyText
+  lead: one
+  phase: one
+
+two:
+  commenter: MyString
+  body: MyText
+  lead: two
+  phase: two

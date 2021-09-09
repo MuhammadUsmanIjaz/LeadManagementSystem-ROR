@@ -2,6 +2,10 @@
   <h1 class="display-4"><%= @lead.project_name %></h1>
   <p class="lead">
       <p>
+      <strong>Creation Date:</strong>
+      <%= @lead.created_at %>
+      </p>
+      <p>
       <strong>Client Name:</strong>
       <%= @lead.client_name %>
       </p>
@@ -25,15 +29,27 @@
       <strong>Test Type:</strong>
       <%= @lead.test_type %>
       </p>
+      <% if @lead.status == 'sale'%>
+        <p>
+        <strong>Sale Transition Date:</strong>
+        <%= @lead.project.created_at %>
+        </p>
+      <% end %>
+
   </p>
   <br/>
-  <%= link_to "Edit Lead", edit_lead_path(@lead), class:"btn btn-dark" %>
-  <%= link_to "Destroy Lead", lead_path(@lead),method: :delete, data: { confirm: "Are you sure?" }, class:"btn btn-dark" %>
+  <% if @lead.status == 'sale' or @lead.status == 'not_sale'%>
+    <button type="button" class="btn btn-dark" disabled>Edit Lead</button>
+    <button type="button" class="btn btn-dark" disabled>Destroy Lead</button>
+  <% else %>
+    <%= link_to "Edit Lead", edit_lead_path(@lead), class:"btn btn-dark" %>
+    <%= link_to "Destroy Lead", lead_path(@lead),method: :delete, data: { confirm: "Are you sure?" }, class:"btn btn-dark" %>
+  <% end %>
+  <%= link_to "Comments", lead_comments_path(@lead), class:"btn btn-dark" %>
 </div>
 
 <br/>
-<div class="container">
-  <h2>Phases</h2>
+<h2>Phases</h2>
   <table class="table table-striped table-bordered table-hover">
     <thead class="thead-dark">
       <tr>
@@ -43,7 +59,7 @@
         <th scope="col">Due Date</th>
         <th scope="col">Status</th>
         <th scope="col">Type</th>
-        <th colspan="3"></th>
+        <th colspan="4"></th>
 
       </tr>
     </thead>
@@ -56,16 +72,25 @@
         <td><%= phase.due_date %></td>
         <td><%= phase.status %></td>
         <td><%= phase.test_type %></td>
-        <td><%= link_to "Manage Engineers", [:addengineers, phase.lead, phase] %></td>
-        <td><%= link_to "Edit Phase", [:edit, phase.lead, phase] %></td>
-        <td><%= link_to 'Destroy Phase', [phase.lead, phase],method: :delete,data: { confirm: "Are you sure?" } %></td>    
+        <td><%= link_to "Comments", lead_phase_comments_path(phase.lead, phase), class: "btn btn-outline-dark btn-sm" %></td>
+        <% if phase.status == 'completed' %>
+          <td><button type="button" class="btn btn-outline-dark btn-sm" disabled>Manage Engineers</button></td>
+          <td><button type="button" class="btn btn-outline-dark btn-sm" disabled>Edit Phase</button></td>
+          <td><button type="button" class="btn btn-outline-dark btn-sm" disabled>Destroy Phase</button></td>
+        <% else %>
+          <td><%= link_to "Manage Engineers", [:addengineers, phase.lead, phase], class: "btn btn-outline-dark btn-sm" %></td>
+          <td><%= link_to "Edit Phase", [:edit, phase.lead, phase], class: "btn btn-outline-dark btn-sm" %></td>
+          <td><%= link_to 'Destroy Phase', [phase.lead, phase],method: :delete,data: { confirm: "Are you sure?" }, class: "btn btn-outline-dark btn-sm" %></td>    
+        <% end %>      
       </tr>
       <% end %>
     </tbody>
   </table>
   <br/>
-  <%= link_to "Add Phase", new_lead_phase_path(@lead), class:"btn btn-dark" %>
-</div>
-
+  <% if @lead.status == 'sale' or @lead.status == 'not_sale'%>
+    <button type="button" class="btn btn-dark" disabled>Add Phase</button>
+  <%else%>
+    <%= link_to "Add Phase", new_lead_phase_path(@lead), class:"btn btn-dark" %>
+  <%end%>
 
   

@@ -6,7 +6,7 @@ class PhasePolicy < ApplicationPolicy
   end
 
   def new?
-    user.has_role? :admin or user.has_role? :BusinessDeveloper
+    user.has_role? :admin or user.has_role? :BusinessDeveloper and user.id == Lead.find(record.lead_id).user_id
   end
 
   def edit?

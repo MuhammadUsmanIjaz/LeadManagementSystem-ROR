@@ -1,0 +1,64 @@
+<div class="card-columns">
+    <% @phase.comments.each do |comment| %>
+    <div class="card border-dark mb-3 " style="width: 18rem;">
+    <h5 class="card-header text-white bg-dark">Comment</h5>
+
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <% comment.avatars.each do |avatar|%>
+            <div class="carousel-item active">
+                <%= image_tag avatar, class:"d-block w-100"%>
+            </div>
+            <% end %>
+        </div>
+    </div>
+    
+        <div class="card-body">
+                <p class="card-text">
+                <strong>Commenter:</strong>
+                <%= comment.commenter %>
+                </p>
+
+                <p class="card-text">
+                <strong>Comment:</strong>
+                <%= comment.body %>
+                </p>
+        </div>
+    </div>
+    <% end %>
+</div>
+
+<div class="card text-white bg-dark mb-3">
+    <h5 class="card-header">Add Comment:</h5>
+    <div class="card-body">
+        <%= form_with model: [ @lead,@phase, @phase.comments.build ] do |form| %>
+        <div class="form-group">
+            <%= form.label :commenter %><br>
+            <%= form.text_field :commenter, class:"form-control" %>
+        </div>
+
+        <div class="form-group">
+            <%= form.label :body %><br>
+            <%= form.text_area :body, class:"form-control" %>
+        </div>
+
+        <div>
+            <%= form.hidden_field :commentable_type, value: 'Phase' %>
+        </div>
+
+        <div>
+            <%= form.hidden_field :commentable_id, value: @phase.id %>
+        </div>
+
+        <div class="form-group">
+            <%= form.label :images %><br>
+            <%= form.file_field :avatars, multiple: true%>
+        </div>
+
+        <div>
+            <%= form.submit class:"btn btn-secondary"%>
+        </div>
+        <% end %>
+    </div>
+</div>
+

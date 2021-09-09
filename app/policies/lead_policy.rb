@@ -6,11 +6,11 @@ class LeadPolicy < ApplicationPolicy
   end
 
   def edit?
-    user.has_role? :admin or user.has_role? :BusinessDeveloper
+    user.has_role? :admin or user.has_role? :BusinessDeveloper and user.id == record.user_id
   end
 
   def destroy?
-    user.has_role? :admin or user.has_role? :BusinessDeveloper
+    user.has_role? :admin or user.has_role? :BusinessDeveloper and user.id == record.user_id
   end
 
   def new?

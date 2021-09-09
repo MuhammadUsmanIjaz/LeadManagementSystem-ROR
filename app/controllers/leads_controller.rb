@@ -31,16 +31,31 @@ class LeadsController < ApplicationController
 
   def update
     @lead = Lead.find(params[:id])
+    @check = true
+    if lead_params[:status] == 'sale' or lead_params[:status] == 'not_sale'
+      @phases = @lead.phases.all
+      @phases.each do |phase|
+        if phase.status != 'completed'
+          @check = false
+          break
+        end
+      end
+    end
 
-    if @lead.update(lead_params)
-      if lead_params[:status] == 'sale'
-        @description = 'The project is given by the client==>' + @lead.client_name + ', which will be developed using ' + @lead.platform + ' platform.'
-        redirect_to projects_new_path(:project => {:title => @lead.project_name, :description => @description, :lead_id => @lead.id})
+    if @check
+      if @lead.update(lead_params)
+        if lead_params[:status] == 'sale'
+          @description = 'The project is given by the client==>' + @lead.client_name + ', which will be developed using ' + @lead.platform + ' platform.'
+          redirect_to projects_new_path(:project => {:title => @lead.project_name, :description => @description, :lead_id => @lead.id}), notice: 'Congratualtions! The Lead is Successfully transitioned to Project.'
+        else
+          redirect_to @lead, notice: 'Lead updated Successfully!'
+        end
       else
-        redirect_to @lead
+        render :edit, status: :unprocessable_entity
       end
     else
-      render :edit, status: :unprocessable_entity
+      flash[:alert] = 'All the Phase of this Lead are not Completed. Therefore, you can not transition this Lead to Sale or Not-Sale!'
+      render :edit  
     end
   end
 
